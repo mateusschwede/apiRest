@@ -1,7 +1,10 @@
-from django.urls import path
-from .views import MusicListCreateView, MusicRetrieveUpdateDestroyView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import MusicViewSet
+
+router = DefaultRouter()
+router.register(r'musics', MusicViewSet)
 
 urlpatterns = [
-    path('musics/', MusicListCreateView.as_view(), name='music-list-create'),
-    path('musics/<int:pk>/', MusicRetrieveUpdateDestroyView.as_view(), name='music-detail'),
+    path('', include(router.urls)),
 ]
