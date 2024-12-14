@@ -2,8 +2,8 @@
     <div>
         <h2>Editar Música</h2>
         <form @submit.prevent="updateMusic">
-            <input v-model="editedMusic.title" placeholder="Título da música" required />
-            <input v-model="editedMusic.artist" placeholder="Artista" required />
+            <input v-model="editedMusic.title" placeholder="Título da música" required>
+            <input v-model="editedMusic.artist" placeholder="Artista" required>
             <button type="submit">Salvar</button>
             <button type="button" @click="$emit('cancel')">Cancelar</button>
         </form>

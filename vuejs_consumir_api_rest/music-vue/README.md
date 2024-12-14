@@ -1,4 +1,4 @@
-# music-client
+# music-vue
 
 ## Project setup
 ```

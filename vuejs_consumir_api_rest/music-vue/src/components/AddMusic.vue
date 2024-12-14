@@ -2,9 +2,10 @@
     <div>
         <h2>Adicionar Música</h2>
         <form @submit.prevent="addMusic">
-            <input v-model="title" placeholder="Título" required />
-            <input v-model="artist" placeholder="Artista" required />
+            <input v-model="title" placeholder="Título" required>
+            <input v-model="artist" placeholder="Artista" required>
             <button type="submit">Adicionar</button>
+            <button type="button" @click="$emit('cancel')">Cancelar</button>
         </form>
     </div>
 </template>

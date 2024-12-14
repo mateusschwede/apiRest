@@ -1,6 +1,15 @@
 <template>
     <div>
         <h1>Lista de Músicas</h1>
+
+        <div v-if="activeForm === null">
+            <button @click="showForm('add')">Adicionar Música</button>
+        </div>
+
+        <AddMusic v-if="activeForm === 'add'" @music-added="onMusicAdded" @close="closeForm" @cancel="closeForm" />
+
+        <EditMusic v-if="activeForm === 'edit'" :music="editingMusic" @updated="onMusicUpdated" @cancel="closeForm" />
+
         <ul>
             <li v-for="music in musics" :key="music.id">
                 {{ music.title }} - {{ music.artist }}
@@ -9,16 +18,8 @@
             </li>
         </ul>
 
-        <EditMusic v-if="activeForm === 'edit'" :music="editingMusic" @updated="onMusicUpdated" @cancel="closeForm" />
-
-        <AddMusic v-if="activeForm === 'add'" @music-added="onMusicAdded" @close="closeForm" />
-
         <ConfirmDialog v-if="showConfirmDialog" :message="'Deseja realmente excluir esta música?'"
             @confirm="deleteMusic" @cancel="closeConfirmDialog" />
-
-        <div v-if="activeForm === null">
-            <button @click="showForm('add')">Adicionar Música</button>
-        </div>
     </div>
 </template>
 
