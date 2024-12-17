@@ -1,8 +1,9 @@
 <template>
     <h1>Exclusão</h1>
     <p>Excluir música?</p>
-    <p><strong>Título:</strong> {{ music.title }}</p>
-    <p><strong>Artista:</strong> {{ music.artist }}</p>
+    <p>Id: {{ music.id }}</p>
+    <p>Título: {{ music.title }}</p>
+    <p>Artista: {{ music.artist }}</p>
     <button @click="confirmDelete">Confirmar</button>
     <button @click="cancel">Cancelar</button>
 </template>
@@ -41,7 +42,13 @@ export default {
         };
 
         onMounted(fetchMusicDetails);
-        return { music, confirmDelete, cancel };
+        return {
+            music,
+            confirmDelete,
+            cancel,
+        };
     },
 };
 </script>
+
+<style scoped></style>

@@ -1,21 +1,19 @@
 <template>
-    <div>
-        <h1>Editar Música</h1>
-        <form @submit.prevent="submitEdit">
-            <input type="text" placeholder="Título" v-model="music.title" required>
-            <input type="text" placeholder="Artista" v-model="music.artist" required>
-            <button type="submit">Confirmar</button>
-            <button @click="cancelEdit">Cancelar</button>
-        </form>
+    <h1>Editar música</h1>
+    <form @submit.prevent="submitEdit">
+        <input type="text" placeholder="Título" v-model="music.title" required>
+        <input type="text" placeholder="Artista" v-model="music.artist" required>
+        <button type="submit">Confirmar</button>
+        <button @click="cancelEdit">Cancelar</button>
+    </form>
 
-        <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-    </div>
+    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
     setup() {
@@ -32,7 +30,7 @@ export default {
                 const response = await axios.get('http://localhost:8000/api/musics/');
                 musics.value = response.data;
             } catch (error) {
-                console.error('Erro ao buscar músicas:', error);
+                console.error('Erro ao buscar música', error);
             }
         };
 
@@ -42,7 +40,7 @@ export default {
                 music.value = response.data;
                 originalMusic.value = { ...response.data };
             } catch (error) {
-                console.error('Erro ao buscar música:', error);
+                console.error('Erro ao buscar música', error);
             }
         };
 
@@ -55,7 +53,7 @@ export default {
                 (m) => m.title === music.value.title && m.artist === music.value.artist && m.id !== musicId
             );
             if (existingMusic) {
-                errorMessage.value = 'Já existe outra música com esses dados.';
+                errorMessage.value = 'Música já cadastrada';
                 return false;
             }
 
@@ -64,13 +62,15 @@ export default {
         };
 
         const submitEdit = async () => {
-            if (!validateMusic()) return;
+            if (!validateMusic()) {
+                return;
+            }
 
             try {
                 await axios.put(`http://localhost:8000/api/musics/${musicId}/`, music.value);
                 router.push({ name: 'list-music' });
             } catch (error) {
-                console.error('Erro ao editar música:', error);
+                console.error('Erro ao editar música', error);
             }
         };
 
@@ -81,6 +81,7 @@ export default {
         onMounted(() => {
             fetchMusics();
             fetchMusic();
+            
         });
 
         return {

@@ -15,8 +15,7 @@
                 <button @click="startConfirmDelete(music.id)">ExcluirDiretamente</button>
             </div>
 
-            <ConfirmDialogDelete v-if="confirmingMusicId === music.id" :music="music" @cancel="cancelDelete"
-                @confirm="confirmDelete" />
+            <ConfirmDialogDelete v-if="confirmingMusicId === music.id" :music="music" @cancel="cancelDelete" @confirm="confirmDelete" />
         </li>
     </ul>
 
@@ -31,7 +30,7 @@ import ConfirmDialogDelete from './ConfirmDialogDelete.vue';
 
 export default {
     components: {
-        ConfirmDialogDelete,
+        ConfirmDialogDelete
     },
     setup() {
         const musics = ref([]);
@@ -43,7 +42,7 @@ export default {
                 const response = await axios.get('http://localhost:8000/api/musics/');
                 musics.value = response.data;
             } catch (error) {
-                console.error('Erro ao buscar músicas:', error);
+                console.error('Erro ao buscar música', error);
             }
         };
 
@@ -79,21 +78,23 @@ export default {
                 musics.value = musics.value.filter((music) => music.id !== id);
                 confirmingMusicId.value = null;
             } catch (error) {
-                console.error('Erro ao excluir música:', error);
+                console.error('Erro ao excluir música', error);
             }
         };
 
         return {
             musics,
-            startConfirmDelete,
-            cancelDelete,
-            confirmDelete,
+            confirmingMusicId,
             viewMusic,
             goToDeleteMusic,
             goToEditMusic,
             goToAddMusic,
-            confirmingMusicId
+            startConfirmDelete,
+            cancelDelete,
+            confirmDelete,
         };
     },
 };
 </script>
+
+<style scoped></style>

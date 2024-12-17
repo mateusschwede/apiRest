@@ -1,4 +1,4 @@
-# music-frontend
+# music-vue
 
 ## Project setup
 ```

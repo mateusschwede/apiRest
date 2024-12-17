@@ -16,10 +16,7 @@ import { useRouter } from 'vue-router';
 
 export default {
     setup() {
-        const newMusic = ref({
-            title: '',
-            artist: '',
-        });
+        const newMusic = ref({ title: '', artist: '' });
         const errorMessage = ref('');
         const router = useRouter();
 
@@ -39,14 +36,14 @@ export default {
                 );
 
                 if (musicExists) {
-                    errorMessage.value = 'Música já cadastrada.';
+                    errorMessage.value = 'Música já cadastrada';
                 } else {
                     await axios.post('http://localhost:8000/api/musics/', newMusic.value);
                     router.push({ name: 'list-music' });
                 }
             } catch (error) {
-                console.error('Erro ao verificar ou adicionar música:', error);
-                errorMessage.value = 'Erro ao adicionar música.';
+                console.error("Erro ao adicionar música", error);
+                errorMessage.value = 'Erro ao adicionar música';
             }
         };
 

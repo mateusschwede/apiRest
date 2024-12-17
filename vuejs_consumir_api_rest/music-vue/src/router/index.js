@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
 import ListMusic from '../components/ListMusic.vue';
 import ShowMusic from '../components/ShowMusic.vue';
 import EditMusic from '../components/EditMusic.vue';
